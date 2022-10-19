@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { IAlert } from "../../types/alert.interface";
 import Alert from "../Alert/Alert";
 import s from './alertpanel.module.scss';
