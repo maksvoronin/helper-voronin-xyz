@@ -1,0 +1,63 @@
+.mainWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  padding-left: 25px;
+  padding-right: 25px;
+  h1 {
+    text-align: center;
+    @media(max-width: 480px) {
+      font-size: 24px;
+    }
+  }
+
+  p {
+    text-align: center;
+    max-width: 480px;
+    line-height: 1.46;
+  }
+
+  p.auth {
+    font-weight: bold;
+    margin-top: 32px;
+  }
+
+  input, button {
+    padding: 15px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    font-size: 16px;
+    max-width: 430px;
+    width: calc(100% - 32px);
+  }
+
+  input {
+    @media(prefers-color-scheme: dark) {
+      background: #1f1f1f;
+      color: white;
+      border: 1px solid rgb(50, 50, 50);
+    }
+  }
+
+  button {
+    width: 100%;
+    max-width: 462px;
+    color: white;
+    background: var(--accent);
+    border: 1px solid var(--accent-hover);
+    transition: background .3s, transform .3s;
+    cursor: pointer;
+    &:hover {
+      background: var(--accent-hover);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
