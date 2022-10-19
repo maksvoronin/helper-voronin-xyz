@@ -7,6 +7,8 @@
   border-radius: 12px;
   width: calc(100% - 32px);
   position: relative;
+  transition: margin .3s;
+  animation: init .5s;
 
   p {
     margin: 0;
@@ -67,5 +69,14 @@
     .close {
       opacity: 1;
     }
+  }
+}
+
+@keyframes init {
+  from {
+    margin-left: 30vw;
+  }
+  to {
+    margin-left: 0vw;
   }
 }

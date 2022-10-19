@@ -4,6 +4,7 @@
   right: 10px;
   width: 320px;
   cursor: default;
+  z-index: 99;
 
   @media(max-width: 480px) {
     width: calc(100% - 20px);

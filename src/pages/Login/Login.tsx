@@ -1,19 +1,23 @@
 import { useState } from 'react';
 import MainLayout from '../../layouts/MainLayout';
-import { IResult } from '../../types/result.interface';
+import { alert } from '../../services/alerting.service';
 import s from './login.module.scss';
 
 const Login = () => {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [result, setResult] = useState<IResult>({status: "error", message: ""});
 
   const sendData = () => {
     if(!email || email === '') {
-
+      return alert("error", "Заполните форму", "Укажите email", 10);
     }
-    alert(`${email} ${password}`);
+
+    if(!password || password === '') {
+      return alert("error", "Заполните форму", "Укажите пароль", 10);
+    }
+
+    alert("default", "Успешно!", "Вы успешно авторизовались!", 5);
   }
   
   return (
