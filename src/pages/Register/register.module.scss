@@ -1,0 +1,79 @@
+.registerWrapper {
+
+  margin-top: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .duoInputs {
+    display: flex;
+    max-width: 362px;
+    justify-content: space-between;
+
+    input {
+      max-width: 145px;
+    }
+    @media(max-width: 480px) {
+      flex-direction: column;
+      input {
+        max-width: 360px;
+      }
+    }
+  }
+
+  h1 {
+    @media(max-width: 480px) {
+      font-size: 28px;
+    }
+  }
+
+  input,
+  button,
+  select {
+    padding: 15px;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    font-size: 16px;
+    max-width: 330px;
+    width: calc(100% - 32px);
+  }
+
+  input {
+    @media(prefers-color-scheme: dark) {
+      background: #1f1f1f;
+      color: white;
+      border: 1px solid rgb(50, 50, 50);
+    }
+  }
+
+  button {
+    width: 100%;
+    max-width: 362px;
+    color: white;
+    background: var(--accent);
+    border: 1px solid var(--accent-hover);
+    transition: background .3s, transform .3s;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--accent-hover);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  select {
+    width: 100%;
+    max-width: 362px;
+    height: 52px;
+    cursor: pointer;
+    @media(prefers-color-scheme: dark) {
+      background: #1f1f1f;
+      color: white;
+      border: 1px solid rgb(50, 50, 50);
+    }
+  }
+}
