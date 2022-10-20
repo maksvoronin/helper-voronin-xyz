@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import MainLayout from '../../layouts/MainLayout';
-import { alert } from '../../services/alerting.service';
+import authService from '../../services/auth.service';
+import { AuthFrom } from '../../types/authFrom.interface';
 import s from './login.module.scss';
 
 const Login = () => {
@@ -8,16 +9,8 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const sendData = () => {
-    if(!email || email === '') {
-      return alert("error", "Заполните форму", "Укажите email", 10);
-    }
-
-    if(!password || password === '') {
-      return alert("error", "Заполните форму", "Укажите пароль", 10);
-    }
-
-    alert("default", "Успешно!", "Вы успешно авторизовались!", 5);
+  const sendData = async () => {
+    await authService.login(email, password, AuthFrom.BROWSER, 'web_client');
   }
   
   return (
