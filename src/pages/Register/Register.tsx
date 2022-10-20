@@ -2,6 +2,7 @@ import MainLayout from "../../layouts/MainLayout";
 import s from './register.module.scss';
 import {useState} from 'react';
 import { alert } from "../../services/alerting.service";
+import authService from "../../services/auth.service";
 
 const Register = () => {
 
@@ -14,16 +15,11 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const [copyPassword, setCopyPassword] = useState<string>("");
 
-  const sendData = () => {
-    if(!name || name === '') return alert("error", "Заполните форму", "Укажите ваше имя", 10);
-    if(!surname || surname === '') return alert("error", "Заполните форму", "Укажите вашу фамилию", 10);
-    if(!email || email === '') return alert("error", "Заполните форму", "Укажите вашу почту", 10);
-    if(!phone || phone === '') return alert("error", "Заполните форму", "Укажите номер телефона", 10);
-    if(!road || road === '-1') return alert("error", "Заполните форму", "Выберите дорогу", 10);
-    if(!work || work === '') return alert("error", "Заполните форму", "Укажите предприятие", 10);
-    if(!password || password === '') return alert("error", "Заполните форму", "Укажите пароль", 10);
+  const sendData = async() => {
     if(!copyPassword || copyPassword === '') return alert("error", "Заполните форму", "Укажите повтор пароля", 10);
     if(password !== copyPassword) return alert("error", "Что-то не так...", "Введенные пароли не совпадают", 10);
+
+    await authService.register(name, surname, email, phone, road, work, password);
   }
 
   return(

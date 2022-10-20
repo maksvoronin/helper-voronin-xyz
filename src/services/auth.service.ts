@@ -21,8 +21,18 @@ class AuthService {
       }
       console.warn(e);
     });
+  }
 
+  async register(name: string, surname: string, email: string, phone: string, road: string, work: string, password: string) {
+    if(!name || name === '') return alert("error", "Заполните форму", "Укажите ваше имя", 10);
+    if(!surname || surname === '') return alert("error", "Заполните форму", "Укажите вашу фамилию", 10);
+    if(!email || email === '') return alert("error", "Заполните форму", "Укажите вашу почту", 10);
+    if(!phone || phone === '') return alert("error", "Заполните форму", "Укажите номер телефона", 10);
+    if(!road || road === '-1') return alert("error", "Заполните форму", "Выберите дорогу", 10);
+    if(!work || work === '') return alert("error", "Заполните форму", "Укажите предприятие", 10);
+    if(!password || password === '') return alert("error", "Заполните форму", "Укажите пароль", 10);
 
+    alert("default", "Успешная регистрация!", "Теперь Вы можете пользоваться нашим сервисом.", 15);
   }
 }
 
