@@ -22,13 +22,20 @@
       font-size: 16px;
       max-width: 330px;
       width: calc(100% - 32px);
+      transition: border .3s;
     }
 
     input {
+      &:focus {
+        border: 1px solid rgb(212, 212, 212);
+      }
       @media(prefers-color-scheme: dark) {
         background: #1f1f1f;
         color: white;
         border: 1px solid rgb(50, 50, 50);
+        &:focus {
+          border: 1px solid #6b6b6b;
+        }
       }
     }
 

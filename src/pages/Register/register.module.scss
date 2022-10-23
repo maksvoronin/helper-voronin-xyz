@@ -12,8 +12,10 @@
     input {
       max-width: 145px;
     }
+
     @media(max-width: 480px) {
       flex-direction: column;
+
       input {
         max-width: 360px;
       }
@@ -37,13 +39,22 @@
     font-size: 16px;
     max-width: 330px;
     width: calc(100% - 32px);
+    transition: border .3s;
   }
 
-  input {
+  input, select {
+    &:focus {
+      border: 1px solid rgb(212, 212, 212);
+    }
+
     @media(prefers-color-scheme: dark) {
       background: #1f1f1f;
       color: white;
       border: 1px solid rgb(50, 50, 50);
+
+      &:focus {
+        border: 1px solid #6b6b6b;
+      }
     }
   }
 
@@ -70,6 +81,7 @@
     max-width: 362px;
     height: 52px;
     cursor: pointer;
+
     @media(prefers-color-scheme: dark) {
       background: #1f1f1f;
       color: white;
