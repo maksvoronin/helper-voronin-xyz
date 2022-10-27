@@ -1,8 +1,11 @@
 import MainLayout from "../../layouts/MainLayout";
 import s from './register.module.scss';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import { alert } from "../../services/alerting.service";
-import authService from "../../services/auth.service";
+import { useNavigate } from "react-router-dom";
+import axios, { AxiosResponse } from "axios";
+import config from "../../config";
+import IResult from "../../types/result.interface";
 
 const Register = () => {
 
@@ -15,12 +18,56 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const [copyPassword, setCopyPassword] = useState<string>("");
 
+  const navigate = useNavigate();  
+
   const sendData = async() => {
     if(!copyPassword || copyPassword === '') return alert("error", "Заполните форму", "Укажите повтор пароля", 10);
     if(password !== copyPassword) return alert("error", "Что-то не так...", "Введенные пароли не совпадают", 10);
+    if (!name || name === '') { alert("error", "Заполните форму", "Укажите ваше имя", 10); return false; }
+    if (!surname || surname === '') { alert("error", "Заполните форму", "Укажите вашу фамилию", 10); return false; }
+    if (!email || email === '') { alert("error", "Заполните форму", "Укажите вашу почту", 10); return false; }
+    if (!phone || phone === '') { alert("error", "Заполните форму", "Укажите номер телефона", 10); return false; }
+    if (!road || road === '-1') { alert("error", "Заполните форму", "Выберите дорогу", 10); return false; }
+    if (!work || work === '') { alert("error", "Заполните форму", "Укажите предприятие", 10); return false; }
+    if (!password || password === '') { alert("error", "Заполните форму", "Укажите пароль", 10); return false; }
 
-    await authService.register(name, surname, email, phone, road, work, password);
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('surname', surname);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('road', road);
+    formData.append('work', work);
+    formData.append('password', password);
+
+    await axios.post(`${config.API}/auth/register`, formData, { headers: { "Content-Type": "multipart/form-data" } }).then(({ data }: AxiosResponse<IResult>) => {
+      if (data.status === "success") {
+        localStorage.accountToken = data.data.user_data.token;
+        alert("default", "Успешная регистрация!", "Теперь Вы можете пользоваться нашим сервисом.", 15);
+        navigate('/dashboard');
+      } else {
+        alert("error", "Произошла ошибка", data.message, 15);
+      }
+    }).catch(e => {
+      if (e.code === 'ERR_NETWORK') {
+        alert("error", "Произошла ошибка", "Сервер временно недоступен, попробуйте позже", 10);
+      }
+      console.warn(e);
+    });
   }
+
+  useEffect(() => {
+    if (localStorage.accountToken) {
+      axios.get(`${config.API}/auth/exists?token=${localStorage.accountToken}`).then(({ data }: AxiosResponse<IResult>) => {
+        return data.status === "success" ? navigate('/dashboard') : false;
+      }).catch(e => {
+        if (e.code === 'ERR_NETWORK') {
+          alert("error", "Произошла ошибка", "Сервер временно недоступен, попробуйте позже", 10);
+        }
+        console.warn(e);
+      });
+    }
+  }, [navigate]);
 
   return(
     <MainLayout title="Регистрация">

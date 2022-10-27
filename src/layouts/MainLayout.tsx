@@ -7,13 +7,11 @@ interface IMainLayout {
   title: string
 }
 
-const userIsAuth = false;
-
 const MainLayout : React.FC<IMainLayout> = ({ children, title }) => {
   
   return (
     <>
-      <title>{title} {!userIsAuth && "/ Voronin Helper"}</title>
+      <title>{title} / Voronin Helper</title>
 
       <Header />
       <AlertPanel />
