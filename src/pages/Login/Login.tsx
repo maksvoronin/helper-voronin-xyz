@@ -1,10 +1,11 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import MainLayout from '../../layouts/MainLayout';
 import { alert } from '../../services/alerting.service';
-import IResult from '../../types/result.interface';
+import authService from '../../services/auth.service';
+import RouteService from '../../services/route.service';
 import s from './login.module.scss';
 
 const Login = () => {
@@ -43,17 +44,12 @@ const Login = () => {
     });
   }
 
+  const routeService = new RouteService(navigate);
+
   useEffect(() => {
-    if (localStorage.accountToken) {
-      axios.get(`${config.API}/auth/exists?token=${localStorage.accountToken}`).then(({ data }: AxiosResponse<IResult>) => {
-        return data.status === "success" ? navigate('/dashboard') : false;
-      }).catch(e => {
-        if (e.code === 'ERR_NETWORK') {
-          alert("error", "Произошла ошибка", "Сервер временно недоступен, попробуйте позже", 10);
-        }
-        console.warn(e);
-      });
-    }
+    authService.checkAuth().then(r => {
+      r && routeService.dashboard(); 
+    });
   }, [navigate]);
   
   return (

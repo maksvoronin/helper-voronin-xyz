@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
 import config from "../../config";
 import IResult from "../../types/result.interface";
+import authService from "../../services/auth.service";
+import RouteService from "../../services/route.service";
 
 const Register = () => {
 
@@ -56,17 +58,12 @@ const Register = () => {
     });
   }
 
+  const routeService = new RouteService(navigate);
+
   useEffect(() => {
-    if (localStorage.accountToken) {
-      axios.get(`${config.API}/auth/exists?token=${localStorage.accountToken}`).then(({ data }: AxiosResponse<IResult>) => {
-        return data.status === "success" ? navigate('/dashboard') : false;
-      }).catch(e => {
-        if (e.code === 'ERR_NETWORK') {
-          alert("error", "Произошла ошибка", "Сервер временно недоступен, попробуйте позже", 10);
-        }
-        console.warn(e);
-      });
-    }
+    authService.checkAuth().then(r => {
+      r && routeService.dashboard(); 
+    });
   }, [navigate]);
 
   return(
