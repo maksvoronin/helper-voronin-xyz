@@ -1,3 +1,13 @@
 .sidebar {
-  
+  background: #313131;
+  width: 100%;
+  max-width: 240px;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: fixed;
+  height: 100vh;
+  .logo {
+    font-weight: bold;
+    font-size: 24px;
+  }
 }

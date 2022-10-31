@@ -4,7 +4,7 @@ const Sidebar = () => {
   return(
     <div className={s.sidebar}>
 
-      
+      <p className={s.logo}>Helper</p>
 
     </div>
   );

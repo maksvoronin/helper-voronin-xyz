@@ -1,5 +1,7 @@
 import React from "react";
 import AlertPanel from "../components/AlertPanel/AlertPanel";
+import Sidebar from "../components/Sidebar/Sidebar";
+import s from './dashboardlayout.module.scss';
 
 interface IDashboardLayout {
   children?: React.ReactNode,
@@ -9,14 +11,14 @@ interface IDashboardLayout {
 const DashboardLayout : React.FC<IDashboardLayout> = ({ children, title }) => {
   
   return (
-    <>
+    <div className={s.dashboardLayout}>
       <title>{title}</title>
 
       <AlertPanel />
-      
+      <Sidebar />
 
       {children}
-    </>
+    </div>
   )
 }
 
